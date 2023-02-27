@@ -27,6 +27,12 @@ dependencies {
 	testImplementation 'org.springframework.kafka:spring-kafka-test'
 }
 
+sourceSets{
+	test{
+		java.srcDirs = ['src/test/kotlin/unit','src/test/kotlin/intg']
+	}
+}
+
 tasks.withType(KotlinCompile) {
 	kotlinOptions {
 		freeCompilerArgs = ['-Xjsr305=strict']
