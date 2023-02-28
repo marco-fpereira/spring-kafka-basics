@@ -27,7 +27,7 @@ class DataGenerator {
             LibraryEvent(
                 libraryEventType = LibraryEventTypeEnum.NEW,
                 book = Book(
-                    bookName = "Kafka 1",
+                    bookName = "Kafka",
                     bookAuthor = "John"
                 )
             )

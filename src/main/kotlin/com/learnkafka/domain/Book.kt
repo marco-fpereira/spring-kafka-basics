@@ -10,10 +10,10 @@ data class Book(
     var bookId: String? = null,
 
     @JsonProperty("book_name")
-    @field:NotBlank
+    @field:NotBlank(message = "book name is mandatory")
     val bookName: String,
 
     @JsonProperty("book_author")
-    @field:NotBlank
+    @field:NotBlank(message = "book author is mandatory")
     val bookAuthor: String
 )

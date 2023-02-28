@@ -48,8 +48,7 @@ class LibraryEventsController {
             libraryEvent = libraryEvent,
             synchronously = synchronously,
             includeHeaders = includeHeaders,
-            headers = headers,
-
+            headers = headers
         )
     }
 }
