@@ -10,9 +10,9 @@ class DataGenerator {
     companion object {
 
 
-        fun generateLibraryEventWithIds() {
+        fun generateLibraryEventWithIds() : LibraryEvent{
             val id = UUID.randomUUID().toString()
-            LibraryEvent(
+            return LibraryEvent(
                 libraryEventId = id,
                 libraryEventType = LibraryEventTypeEnum.NEW,
                 book = Book(

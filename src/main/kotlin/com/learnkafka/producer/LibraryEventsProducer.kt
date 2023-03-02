@@ -2,6 +2,7 @@ package com.learnkafka.producer
 
 import com.learnkafka.configuration.TOPIC_NAME
 import org.apache.kafka.clients.producer.ProducerRecord
+import org.springframework.kafka.KafkaException
 import org.apache.kafka.common.header.Header
 import org.apache.kafka.common.header.internals.RecordHeader
 import org.slf4j.Logger
@@ -51,7 +52,7 @@ class LibraryEventsProducer {
     private fun handleFailure(key: String, ex: Throwable): SendResult<String, String>? {
         logger.error("Error sending the message of key $key")
         logger.error("Error detail: ${ex.message}")
-        throw ex
+        throw KafkaException(ex.message)
     }
 
     private fun handleSuccess(key: String, value: String, result: SendResult<String, String>) {
