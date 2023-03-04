@@ -29,6 +29,10 @@ class KafkaConfig {
             DefaultKafkaConsumerFactory(this.properties.buildConsumerProperties())
         })
         factory.containerProperties.ackMode = ContainerProperties.AckMode.MANUAL
+        /* it sets 3 differents threads, which one with a poll loop that
+         * will process the events paralelly between the partitions
+        */
+        factory.setConcurrency(3)
         return factory
     }
 
