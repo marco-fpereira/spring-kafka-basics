@@ -51,7 +51,8 @@ class LibraryEventsProducer {
 
     private fun handleFailure(key: String, ex: Throwable): SendResult<String, String>? {
         logger.error("Error sending the message of key $key")
-        logger.error("Error detail: ${ex.message}")
+        logger.error("Error message: ${ex.message}")
+        logger.error("Error stack trace: ${ex.stackTraceToString()}")
         throw KafkaException(ex.message)
     }
 

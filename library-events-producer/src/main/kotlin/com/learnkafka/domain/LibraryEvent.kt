@@ -11,6 +11,7 @@ data class LibraryEvent(
     @field:Pattern(regexp = "([a-f0-9]{8}(-[a-f0-9]{4}){4}[a-f0-9]{8})|^$", message = "library id is mandatory")
     var libraryEventId: String? = null,
 
+    @JsonProperty("library_event_type")
     var libraryEventType: LibraryEventTypeEnum? = null,
 
     @field:NotNull(message = "book is mandatory")

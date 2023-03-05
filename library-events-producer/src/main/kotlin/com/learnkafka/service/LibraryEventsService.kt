@@ -36,7 +36,7 @@ class LibraryEventsService {
         }
 
         val key = libraryEvent.libraryEventId!!
-        val value = objectMapper.writeValueAsString(libraryEvent.book)
+        val value = objectMapper.writeValueAsString(libraryEvent)
 
         val boolSynchronously = !synchronously.isNullOrBlank() && synchronously == "true"
         val boolIncludeHeaders = !includeHeaders.isNullOrBlank() && includeHeaders == "true"
