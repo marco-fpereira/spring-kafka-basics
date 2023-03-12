@@ -26,7 +26,7 @@ data class Book(
     @OneToOne
     @JoinColumn(name = "library_event_id")
     @JsonIgnore
-    var libraryEvent: LibraryEvent
+    var libraryEvent: LibraryEvent? = null
 ) {
     override fun toString(): String {
         return "Book(bookId='$bookId', bookName='$bookName', bookAuthor='$bookAuthor')"

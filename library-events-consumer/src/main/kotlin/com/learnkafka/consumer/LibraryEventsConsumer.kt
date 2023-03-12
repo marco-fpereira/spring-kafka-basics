@@ -23,6 +23,7 @@ class LibraryEventsConsumer : AcknowledgingMessageListener<String,String>{
 
     @KafkaListener(
         topics = [TOPIC_NAME],
+        groupId = "library-events-listener-group"
 /*        topicPartitions = [TopicPartition(
             topic = TOPIC_NAME,partitionOffsets = [PartitionOffset(partition = "0", initialOffset = "0")]
         )]

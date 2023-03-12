@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.learnkafka.jpa.domain.LibraryEvent
 import com.learnkafka.jpa.repository.LibraryEventsRepository
 import org.apache.kafka.clients.consumer.ConsumerRecord
+import org.apache.kafka.common.KafkaException
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -25,7 +26,8 @@ class LibraryEventsService {
             objectMapper.readValue(consumerRecord.value(), LibraryEvent::class.java)
         logger.info("Object Mapped from string: $libraryEvent")
         libraryEvent.book.libraryEvent = libraryEvent
-
+        // just to test if the retry topic's behavior is correct
+        if (libraryEvent.book.bookName=="Exception Book") throw KafkaException("error")
         libraryEventsRepository.save(libraryEvent)
         logger.info("Library event successfully persisted!")
     }
