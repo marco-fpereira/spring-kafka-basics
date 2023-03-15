@@ -1,0 +1,16 @@
+spring:
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9095
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      ssl:
+        trust-store-location: file:C:\\Kafka\\ssl\\client.truststore.jks
+        trust-store-password: password
+        key-store-location: file:C:\\Kafka\\ssl\\client.keystore.jks
+        key-store-password: password
+      properties:
+        protocol: SSL
+        security:
+          protocol: SSL
+        ssl.endpoint.identification.algorithm:

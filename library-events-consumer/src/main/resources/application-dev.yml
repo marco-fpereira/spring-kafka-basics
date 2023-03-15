@@ -1,0 +1,40 @@
+spring:
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9095
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      group-id: library-events-listener-group
+      ssl:
+        trust-store-location: file:C:\\Kafka\\ssl\\client.truststore.jks
+        trust-store-password: password
+        key-store-location: file:C:\\Kafka\\ssl\\client.keystore.jks
+        key-store-password: password
+      properties:
+        protocol: SSL
+        security:
+          protocol: SSL
+        ssl.endpoint.identification.algorithm:
+    producer:
+      bootstrap-servers: localhost:9095
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+  datasource:
+    url: jdbc:h2:mem:inmemorydb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    database: h2
+    database-platform: org.hibernate.dialect.H2Dialect
+    generate-ddl: true
+  h2:
+    console:
+      enabled: true
+
+server:
+  port: 8081
+
+topics:
+  retry: 'LIBRARY_EVENTS.RETRY'
+  dlt: 'LIBRARY_EVENTS.DLT'

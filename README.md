@@ -70,7 +70,7 @@ vim config/server.properties
 
 - With the following content:
 ```
-ssl.keystore.location=/c/Kafka/ssl/server.keystore.jks
+ssl.keystore.location=C:\\Kafka\\ssl\\server.keystore.jks
 ssl.keystore.password=password
 ssl.key.password=password
 ssl.endpoint.identification.algorithm=
@@ -81,14 +81,71 @@ ssl.endpoint.identification.algorithm=
 listeners=PLAINTEXT://localhost:9092, SSL://localhost:9095
 ```
 
-## Accessing SSL Enabled Topics using Console Producers/Consumers
-- Create a topic
-```
-bin/windows/kafka-server-start.bat config/server.properties
-```
+## Accessing SSL Enabled Topics using Console Producers/Consumers [2WayAuthentication]
+- The below command takes care of generating the truststore for us and adds the CA-Cert in to it.
 
-## 
+-- Enable the client authentication at the cluster end by generating the server.truststore.jks
+```
+keytool -keystore server.truststore.jks -alias CARoot -import -file ca-cert
+```
+-- Enter the server truststore password [password]
+-- - Type 'yes' to trust the certificate
+
+-- Enable the server authentication at the client end by generating the client.truststore.jks
 ```
 keytool -keystore client.truststore.jks -alias CARoot -import -file ca-cert
 ```
-- Enter the client truststore password [password]
+-- Enter the client truststore password [password]
+-- Type 'yes' to trust the certificate
+
+
+- Add the **ssl.client.auth** property in the **server.properties** file.
+
+```
+ssl.truststore.location=C:\\Kafka\\ssl\\server.truststore.jks
+ssl.truststore.password=password
+ssl.client.auth=required
+```
+
+-- Create a client.keystore.jks. Hint: It can be the same as the server.keystore.jks, just changing the name
+```
+cp server.keystore.jks client.keystore.jks
+```
+
+- Now it's just needed to add the following informations in the application.yml file:
+
+-- consumer:
+```
+spring:
+  kafka:
+    consumer:
+	  # other configs
+      ssl:
+        trust-store-location: file:C:\\Kafka\\ssl\\client.truststore.jks
+        trust-store-password: password
+        key-store-location: file:C:\\Kafka\\ssl\\client.keystore.jks
+        key-store-password: password
+      properties:
+        protocol: SSL
+        security:
+          protocol: SSL
+        ssl.endpoint.identification.algorithm:
+```
+
+-- producer: 
+```
+spring:
+  kafka:
+    producer:
+	  # other configs
+      ssl:
+        trust-store-location: file:C:\\Kafka\\ssl\\client.truststore.jks
+        trust-store-password: password
+        key-store-location: file:C:\\Kafka\\ssl\\client.keystore.jks
+        key-store-password: password
+      properties:
+        protocol: SSL
+        security:
+          protocol: SSL
+        ssl.endpoint.identification.algorithm:
+```
